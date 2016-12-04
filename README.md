@@ -13,7 +13,7 @@ Summary:-
 For this project, two files are created. One file (Client_Auto_Detect) can be executed at client machine which will continuously monitor the detection of open ports and other file (Server_Auto_Detect) can be executed at server end that will recieve the alerts from client machine on detection of any new open port. 
 
 Working:-
-It is two tier architecture. Client machine will continuously scan the specified or all tcp ports on their machine. Any detection of new port will trigger an event and forward it to server which runs on specific port "5555" to receive alerts. Any new port detection will be triggered as alerts and client will forward it to server. At server end, logs will be stored at file with named as  "Storage.dat" (.dat extension as the server is ubuntu). In addition, all the subsequent logs will be appended to the existing logs on the same file.
+It is two tier architecture. Client machine will continuously scan the specified or all tcp ports on its machine. Any detection of new port will trigger an event and forward it to server which listens on specific port "5555" to receive alerts. Any new port detection will be triggered as alerts and client will forward it to server. At server end, logs will be stored at file with named as  "Storage.dat" (.dat extension as the server is ubuntu). In addition, all the subsequent logs will be appended to the existing logs on the same file.
 
 Use cases :- 
 1. Anomaly detection of ports - Sudden detection of port apart from allowed ports may be detected as anomaly behavior. 
