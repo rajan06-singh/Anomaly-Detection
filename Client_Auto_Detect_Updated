@@ -1,0 +1,51 @@
+import socket
+from struct import * 
+
+#This function will connect to server and send the alert to it
+def ConnectedPort(host, port, i):
+    c = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    c.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    msg = "TCP port " + str(i) + " open \n"
+    packed_msg = bytes(msg, 'utf-8')
+    addr = (host, port)
+    c.connect(addr)
+    c.sendall(packed_msg)
+    c.close()
+
+#list of ports need to be scanned 
+test = {3389, 22, 445}
+Not_Connected = [ ]
+
+#Below loop is to scan the aforementioned ports and append the closed ports in Not_Connected list
+for i in test:
+    host = '192.168.1.175'
+    addr = (host, i)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    try:
+       s.connect(addr) 
+       if True:
+          print ("TCP " + str (i) + "  is connected")
+          ConnectedPort('192.168.1.215', 5555, i)
+    except Exception:
+        print ("TCP " + str (i) + " is not connected")
+        Not_Connected.append(i)
+    s.close()
+
+#Below loop will continue monitor or scan the ports in Not_Connected list
+for i in Not_Connected:
+    host = '192.168.1.175'
+    addr = (host, i)
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    try:
+       s.connect(addr)
+       if True:
+            print ("TCP " + str (i) + "  is connected")
+            ConnectedPort('192.168.1.215', 5555, i)
+            Not_Connected.remove(i)
+            s.close()
+    except Exception:
+        print ("TCP " + str (i) + "  is not connected")
+        Not_Connected.append(i)
+        
